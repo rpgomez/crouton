@@ -441,7 +441,7 @@ Valid chroots:
     fi
 
     # Chroot must be located on an ext filesystem
-    if df -T "`getmountpoint "$CHROOT"`" | awk '$2~"^ext"{exit 1}'; then
+    if df -T "`getmountpoint "$CHROOT"`" | tail -n 1 | awk '$2!~"^ext"{exit 1}'; then
         error 1 "$CHROOTSRC is not an ext filesystem."
     fi
 
